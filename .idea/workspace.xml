@@ -31,8 +31,12 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="JupyterTrust" id="a0551f25-b038-407e-84b2-710c07732f39" />
   <component name="ProjectId" id="1WyHTgstr9EKBXkUkkqzj8QNAT6" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -51,7 +55,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.completion" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -253,81 +257,67 @@
       <workItem from="1582626522916" duration="1076000" />
       <workItem from="1582788119655" duration="7151000" />
       <workItem from="1583131437440" duration="2463000" />
+      <workItem from="1583992510676" duration="49000" />
+      <workItem from="1583992560376" duration="1115000" />
+      <workItem from="1583993677553" duration="24000" />
+      <workItem from="1584687579369" duration="1126000" />
+      <workItem from="1584780593893" duration="7290000" />
+      <workItem from="1585733514639" duration="45000" />
+      <workItem from="1586863877170" duration="786000" />
+      <workItem from="1587032162640" duration="842000" />
+      <workItem from="1587382029713" duration="49000" />
+      <workItem from="1587385125427" duration="6045000" />
+      <workItem from="1587456980540" duration="4093000" />
+      <workItem from="1587481701170" duration="712000" />
+      <workItem from="1587979696565" duration="8565000" />
+      <workItem from="1587993431649" duration="1096000" />
+      <workItem from="1588000063348" duration="613000" />
+      <workItem from="1588058325765" duration="1425000" />
+      <workItem from="1588059777268" duration="264000" />
+      <workItem from="1588060192445" duration="6756000" />
+      <workItem from="1588093240717" duration="864000" />
+      <workItem from="1588151625059" duration="1775000" />
+      <workItem from="1588164381245" duration="4287000" />
+      <workItem from="1588230535843" duration="626000" />
+      <workItem from="1588669887075" duration="121000" />
+      <workItem from="1588770108100" duration="2081000" />
+      <workItem from="1589464157514" duration="1725000" />
+      <workItem from="1589523272715" duration="11000" />
+      <workItem from="1589622094590" duration="10119000" />
+      <workItem from="1589791733702" duration="605000" />
+      <workItem from="1589805347977" duration="1481000" />
+      <workItem from="1596091375396" duration="1464000" />
+      <workItem from="1596092855275" duration="9371000" />
+      <workItem from="1596125445980" duration="899000" />
+      <workItem from="1596181768538" duration="2633000" />
+      <workItem from="1596189791434" duration="634000" />
+      <workItem from="1596192165352" duration="1215000" />
+      <workItem from="1596436088025" duration="2829000" />
+      <workItem from="1596527280921" duration="4170000" />
+      <workItem from="1596626610934" duration="64000" />
+      <workItem from="1596626687876" duration="871000" />
+      <workItem from="1596628617967" duration="649000" />
+      <workItem from="1596700400157" duration="729000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+  </component>
   <component name="WindowStateProjectService">
-    <state x="361" y="72" key="#Inspections" timestamp="1581062434137">
+    <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1588060299894">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="72" key="#Inspections/0.0.1536.824@0.0.1536.824" timestamp="1581062434137" />
-    <state x="496" y="40" key="#Om-Nom_test" timestamp="1580970020587">
+    <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1588060299894" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1596626839054">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="496" y="40" key="#Om-Nom_test/0.0.1536.824@0.0.1536.824" timestamp="1580970020587" />
-    <state x="223" y="68" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580125753332">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="223" y="68" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1580125753332" />
-    <state width="1493" height="261" key="GridCell.Tab.0.bottom" timestamp="1582902856787">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1582902856787" />
-    <state width="1493" height="261" key="GridCell.Tab.0.center" timestamp="1582902856787">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1582902856787" />
-    <state width="1493" height="261" key="GridCell.Tab.0.left" timestamp="1582902856787">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1582902856787" />
-    <state width="1493" height="261" key="GridCell.Tab.0.right" timestamp="1582902856787">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1582902856787" />
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1582902856787">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1582902856787" />
-    <state width="1493" height="261" key="GridCell.Tab.1.center" timestamp="1582902856787">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1582902856787" />
-    <state width="1493" height="261" key="GridCell.Tab.1.left" timestamp="1582902856787">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1582902856787" />
-    <state width="1493" height="261" key="GridCell.Tab.1.right" timestamp="1582902856787">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1582902856787" />
-    <state x="277" y="56" key="SettingsEditor" timestamp="1582195093160">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="277" y="56" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1582195093160" />
-    <state width="775" height="419" key="XDebugger.FullValuePopup" timestamp="1582194882082">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="775" height="419" key="XDebugger.FullValuePopup/0.0.1536.824@0.0.1536.824" timestamp="1582194882082" />
-    <state x="277" y="117" key="com.intellij.execution.console.ConsoleHistoryController$MyBrowseAction$1" timestamp="1582900085586">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="277" y="117" key="com.intellij.execution.console.ConsoleHistoryController$MyBrowseAction$1/0.0.1536.824@0.0.1536.824" timestamp="1582900085586" />
-    <state x="465" y="238" key="com.intellij.ide.util.TipDialog" timestamp="1581237052706">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="465" y="238" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1581237052706" />
-    <state width="600" height="424" key="javadoc.popup" timestamp="1581245150510">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="600" height="424" key="javadoc.popup/0.0.1536.824@0.0.1536.824" timestamp="1581245150510" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1581328175597">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1581328175597" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1596626839054" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -2,44 +2,46 @@ from FET_calculation_class import FETs_calculation
 import numpy as np
 import os
 
-path = r'C:\Users\kpebe\OneDrive\Рабочий стол\Transistors 2020'
+def calculate_capacitance(thickness, epsilon):
+
+    assert len(thickness) == len(epsilon)
+
+    C = 0
+
+    for i in range(len(thickness)):
+
+        C += thickness[i]/epsilon[i] * 1e-7
+
+    return (C / (8.85 * 1e-14)) ** (-1)
+
+
+path = r'C:\Users\kpebe\OneDrive\Рабочий стол\N2O'
 
 chip_names = os.listdir(path)
 
-length_array = np.zeros((20, 8))
+for chip in chip_names:
 
-for j in range(0, 8):
+    measurements = os.listdir(path + '\\' + chip)
+    print(chip)
 
-    length_array[:, j] = (60 + 20 * j) / 1e4
+    for measurement in measurements:
 
-calc = FETs_calculation(columns = 8, rows = 20, filepath_kernel=path,
-                        chip_name='1st regime 140 s', measurement='IV',
-                        measurement_type = 'Isd-Vsd', length_array=length_array,
-                        width=150/1e4, t_ox=500)
+        filepath = path + '\\' + chip + '\\' + measurement
 
-calc.num_sd_bias = 7
-calc.plot_graphs()
+        # length_array = np.zeros((8, 4))
+        #
+        # for j in range(4):
+        #
+        #     length_array[:, j] = (60 + 20 * j) / 1e4
 
+        if '10min32s' in chip:
+            calc = FETs_calculation(columns = 13, rows = 24, filepath_kernel=path,
+                                chip_name = chip, measurement = measurement,
+                                measurement_type = 'Isd-Vg', num_sd_bias = 1)
 
-
-
-# for chip in chip_names:
-#     measurements = os.listdir(path + '\\' + chip)
-#     for measurement in measurements:
-#         filepath = path + '\\' + chip + '\\' + measurement
-#
-#         length_array = np.zeros((20, 8))
-#
-#         for j in range(0, 8):
-#
-#             length_array[:, j] = (60 + 20 * j) / 1e4
-#
-#         print(chip)
-#         calc = FETs_calculation(columns = 8, rows = 20, filepath_kernel=path,
-#                                 chip_name=chip, measurement=measurement,
-#                                 measurement_type = 'Isd-Vg', length_array=length_array,
-#                                 width=150/1e4, t_ox=500)
-#         calc.params_calc()
-#         calc.heatmaps()
-#         # calc.plot_graphs()
-#         calc.mobility_calc()
+            calc.params_calc()
+            calc.heatmaps()
+            calc.plot_graphs()
+            # calc.mobility_calc(length_array = length_array, C = 1, width = 1, plot_graphs=True, plot_heatmaps=True)
+            # calc.export_data()
+            # calc.lch_dependence()

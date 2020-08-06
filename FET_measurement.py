@@ -12,7 +12,7 @@ measurement.turn_on_keysight()
 measurement.turn_on_drive()
 
 measurements_folder = r'C:\Users\kpebe\OneDrive\Рабочий стол\Transistor measurements'
-chip_name = r'HUINA'
+chip_name = r'2nd regime 165 s'
 os.makedirs(measurements_folder + r'\\' + chip_name, exist_ok = True)
 
 Vg_start = -10
