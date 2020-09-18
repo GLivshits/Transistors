@@ -6,6 +6,7 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 from matplotlib.colors import ListedColormap
 
+
 class FETs_calculation(object):
 
     def __init__(self, measurement_type, columns, rows, filepath_kernel,
@@ -149,14 +150,14 @@ class FETs_calculation(object):
 
                 for k in range(0, self.num_sd_bias):
 
-                    fig, ax = plt.subplots(figsize = (8, 8))
+                    fig, ax = plt.subplots(figsize = (10, 10))
 
                     sns.heatmap(self.status_array, linewidth = .3, ax = ax,
                                 cmap = self.status_cmap, vmin = 1, vmax = 3, cbar = False,
                                 xticklabels = np.arange(1, self.status_array.shape[1] + 1, 1),
                                 yticklabels = np.arange(1, self.status_array.shape[0] + 1, 1))
                     sns.heatmap(self.on_off_ratio[:, :, k, i], linewidth = .5, ax = ax,
-                                vmin = 1, vmax = 10 ** 6, cbar=True,
+                                vmin = 1, vmax = 10 ** 6, cbar=True, annot = True, fmt = '.1g',
                                 norm = mpl.colors.LogNorm(), cmap = 'rainbow',
                                 cbar_kws = {'ticks': [1e0, 1e1, 1e2, 1e3, 1e4, 1e5, 1e6]},
                                 xticklabels=np.arange(1, self.status_array.shape[1] + 1, 1),
@@ -172,13 +173,13 @@ class FETs_calculation(object):
                     plt.clf()
                     plt.close(fig)
 
-                    fig, ax = plt.subplots(figsize=(8, 8))
+                    fig, ax = plt.subplots(figsize=(10, 10))
                     sns.heatmap(self.status_array, linewidth=.3, ax=ax,
                                 cmap=self.status_cmap, vmin=1, vmax=3, cbar=False,
                                 xticklabels=np.arange(1, self.status_array.shape[1] + 1, 1),
                                 yticklabels=np.arange(1, self.status_array.shape[0] + 1, 1))
                     sns.heatmap(self.on_state_resistance[:, :, k, i], linewidth=.5, ax=ax,
-                                vmin=1e3, vmax=1e8, cbar=True,
+                                vmin=1e3, vmax=1e8, cbar=True, annot = True, fmt = '.1g',
                                 norm=mpl.colors.LogNorm(), cmap='rainbow',
                                 cbar_kws={'ticks': [1e3, 1e4, 1e5, 1e6, 1e7, 1e8]},
                                 xticklabels=np.arange(1, self.status_array.shape[1] + 1, 1),
@@ -367,7 +368,7 @@ class FETs_calculation(object):
 
                         curr_diff[:, k] = -np.diff(np.delete(curr[:, k], max_backward_n), n=1) /\
                                     np.diff(np.delete(np.array(df[1].iloc[k*m1:(k+1)*m1]), max_backward_n), n=1)
-                        # curr_diff[:, k] = self.length_array[i, j] / self.width / self.capacitance * curr_diff[:, k] / self.sd_biases[k]
+                        # curr_diff[:, k] = self.length_array[i, j] / self.width / C * curr_diff[:, k] / self.sd_biases[k]
 
                         self.max_mobility[i, j, k] = np.max(curr_diff)
 
@@ -385,13 +386,14 @@ class FETs_calculation(object):
                                  curr_diff[:, k] * 1e6,
                                  label='{} V'.format(self.sd_biases[k]))
 
-                        plt.title(self.chip_name+ '\n' + self.measurement + '\n' + 'Transconductance'
+                        plt.title(self.chip_name+ '\n' + self.measurement + '\n' + '$Transconductance$, $\u03bcS$'
                                   + '\n' + 'FET {}_{}'.format(i + 1, j + 1))
+                        # '$\u03bc_{FE}$,' + '$cm^{2}/(V*s)$'
 
                         plt.legend(loc=0)
 
                         plt.xlabel('$V_{G}$, V', fontsize=14)
-                        plt.ylabel('Transconductance, ' + '\u03bcA/V', fontsize=14)
+                        plt.ylabel('$Transconductance$, $\u03bcS$', fontsize=14)
 
                         # plt.grid(b=True, axis='both', which='major')
 
@@ -447,13 +449,13 @@ class FETs_calculation(object):
 
                 fig, ax = plt.subplots(figsize=(6, 6))
 
-                df = pd.DataFrame(np.transpose([np.ndarray.flatten((self.open_state_resistance[:, :, z, 0])),
-                                                np.ndarray.flatten((self.closed_state_resistance[:, :, z, 0])),
+                df = pd.DataFrame(np.transpose([np.ndarray.flatten((self.on_state_resistance[:, :, z, 0])),
+                                                np.ndarray.flatten((self.off_state_resistance[:, :, z, 0])),
                                                 np.ndarray.flatten((self.on_off_ratio[:, :, z, 0])),
                                                 np.ndarray.flatten(self.max_mobility[:, :, z]),
                                                 np.rint(np.ndarray.flatten(self.length_array[:, :] * 1e4))]))
                 df.dropna(inplace = True, how = 'any')
-                df.columns = ('R_open', 'R_closed', 'On/off', 'Max_mob', 'Lch')
+                df.columns = ('R_on', 'R_off', 'On/off', 'Max_mob', 'Lch')
 
                 if (self.on_off_ratio == float('nan')).all() == False:
 
@@ -463,13 +465,13 @@ class FETs_calculation(object):
                     # data['R closed'] = data['R closed']/data['Lch']
 
                     g = sns.pairplot(df, hue='Lch', diag_kind='hist', palette='rainbow',
-                                     vars=['R_open', 'R_closed', 'On/off', 'Max_mob'],
+                                     vars=['R_on', 'R_off', 'On/off', 'Max_mob'],
                                      plot_kws={'size': 15, 'alpha': 0.85}, diag_kws={'alpha': 0.4, 'log': True,
                                                                                      'bins': np.logspace(np.log10(1e-3),
                                                                                                          np.log10(1e12),
                                                                                                          80)})
 
-                    k = ['R_open', 'R_closed', 'On/off', 'Max_mob']
+                    k = ['R_on', 'R_off', 'On/off', 'Max_mob']
 
                     for i in range(0, g.axes.shape[0]):
 
@@ -564,7 +566,7 @@ class FETs_calculation(object):
                               np.round(np.ndarray.flatten(self.max_mobility[:, :, z]), 3)]).T)
 
             df.columns = ['Chip name', 'Measurement', 'Status', 'Bias',
-                          'Lch', 'R open', 'R closed', 'On/off', 'Max mobility']
+                          'Lch', 'R_on', 'R_off', 'On/off', 'Max mobility']
 
             pd.DataFrame.to_csv(df, path_or_buf = self.filepath_kernel + r'\Results {} V.csv'.format(self.sd_biases[z]),
                                 sep = ',', header = True, index = False)
