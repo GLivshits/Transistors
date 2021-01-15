@@ -50,6 +50,31 @@ class FETs_calculation(object):
                     df = pd.read_csv(self.filepath_kernel + r'\\data\\fet_{}_{}.csv'.format(i + 1, j + 1),
                                      engine='python',
                                      sep=',')
+
+                    if (df.values > 1e100).any():  # Данные говно
+
+                        self.on_off_ratio[i, j, :, :] = float('NaN')
+                        self.on_state_resistance[i, j, :, :] = float('NaN')
+                        self.off_state_resistance[i, j, :, :] = float('NaN')
+                        self.status_array[i, j] = 3
+                        continue
+
+                    if np.amax(np.abs(df.values[:, 2])) < 10 ** (-9):  # условие для непроводящих
+
+                        self.on_off_ratio[i, j, :, :] = float('NaN')
+                        self.on_state_resistance[i, j, :, :] = float('NaN')
+                        self.off_state_resistance[i, j, :, :] = float('NaN')
+                        self.status_array[i, j] = 1
+                        continue
+
+                    if np.amax(np.abs(df.values[:, 3])) > 1e-9:  # условие для пробитого гейта
+
+                        self.on_off_ratio[i, j, :, :] = float('NaN')
+                        self.on_state_resistance[i, j, :, :] = float('NaN')
+                        self.off_state_resistance[i, j, :, :] = float('NaN')
+                        self.status_array[i, j] = 2
+                        continue
+
                     # эти переменные содержат информацию о числе измерений, количетсве циклов и т.п.
                     df.columns = np.arange(0, df.shape[1], 1)
                     m1 = int(np.rint(df.shape[0] / self.num_sd_bias))
@@ -99,6 +124,8 @@ class FETs_calculation(object):
                         # это минимальные токи
                         min_forward = np.amin(abs(single_transistor_currents[:max_forward_n]))
                         min_backward = np.amin(abs(single_transistor_currents[max_backward_n:]))
+                        # min_forward = abs(single_transistor_currents[(df.iloc[:, 1][df.iloc[:, 1] == 0]).index[0]])
+                        # min_backward = abs(single_transistor_currents[(df.iloc[:, 1][df.iloc[:, 1] == 0]).index[0]])
                         self.min_currents[i, j, k, :] = [min_forward * np.sign(self.sd_biases[k]),
                                                          min_backward * np.sign(self.sd_biases[k])]
                         # здесь задаются on/off, Ron и Roff
@@ -111,31 +138,19 @@ class FETs_calculation(object):
 
                         self.off_state_resistance[i, j, k, :] = abs(self.sd_biases[k] / self.min_currents[i, j, k, :])
 
-                        if np.mean(abs(self.max_currents[i, j, k, :])) < 10 ** (-9):  # условие для непроводящих
-
-                            self.on_off_ratio[i, j, k, :] = float('NaN')
-                            self.on_state_resistance[i, j, k, :] = float('NaN')
-                            self.off_state_resistance[i, j, k, :] = float('NaN')
-                            self. status_array[i, j] = 1
-
-                        if np.max(abs(gate_current)) > 1e-8:  # условие для пробитого гейта
-
-                            self.on_off_ratio[i, j, k, :] = float('NaN')
-                            self.on_state_resistance[i, j, k, :] = float('NaN')
-                            self.status_array[i, j] = 2
-
-                        if np.mean(abs(self.max_currents[i, j, k, :])) > 1e2 \
-                            or np.mean(abs(self.min_currents[i, j, k, :])) > 1e2 \
-                            or np.isnan(np.array(df)).any():  # Данные говно
-
-                            self.on_off_ratio[i, j, k, :] = float('NaN')
-                            self.on_state_resistance[i, j, k, :] = float('NaN')
-                            self.status_array[i, j] = 3
-
                 except FileNotFoundError:
 
-                    self.status_array[i,j] = 3
+                    self.status_array[i, j] = 3
                     pass
+
+        for i in range(self.rows):
+
+            if i%2 == 1:
+
+                self.on_off_ratio[i, :, :, :] = self.on_off_ratio[i, ::-1, :, :]
+                self.on_state_resistance[i, :, :, :] = self.on_state_resistance[i, ::-1, :, :]
+                self.off_state_resistance[i, :, :, :] = self.off_state_resistance[i, ::-1, :, :]
+                self.status_array[i, :] = self.status_array[i, ::-1]
 
     def heatmaps(self):
 
@@ -368,7 +383,7 @@ class FETs_calculation(object):
 
                         curr_diff[:, k] = -np.diff(np.delete(curr[:, k], max_backward_n), n=1) /\
                                     np.diff(np.delete(np.array(df[1].iloc[k*m1:(k+1)*m1]), max_backward_n), n=1)
-                        # curr_diff[:, k] = self.length_array[i, j] / self.width / C * curr_diff[:, k] / self.sd_biases[k]
+                        curr_diff[:, k] = self.length_array[i, j] / self.width / C * curr_diff[:, k] / self.sd_biases[k]
 
                         self.max_mobility[i, j, k] = np.max(curr_diff)
 
@@ -383,17 +398,17 @@ class FETs_calculation(object):
                         for k in range(self.num_sd_bias):
 
                             plt.plot(np.delete(np.array(df[1].iloc[k*m1:(k+1)*m1]), [max_forward_p, max_backward_n]),
-                                 curr_diff[:, k] * 1e6,
+                                 curr_diff[:, k],
                                  label='{} V'.format(self.sd_biases[k]))
 
-                        plt.title(self.chip_name+ '\n' + self.measurement + '\n' + '$Transconductance$, $\u03bcS$'
+                        plt.title(self.chip_name+ '\n' + self.measurement + '\n' + '$\u03bc_{FE}$,' + '$cm^{2}/(V*s)$'
                                   + '\n' + 'FET {}_{}'.format(i + 1, j + 1))
                         # '$\u03bc_{FE}$,' + '$cm^{2}/(V*s)$'
 
                         plt.legend(loc=0)
 
                         plt.xlabel('$V_{G}$, V', fontsize=14)
-                        plt.ylabel('$Transconductance$, $\u03bcS$', fontsize=14)
+                        plt.ylabel('$\u03bc_{FE}$,' + '$cm^{2}/(V*s)$', fontsize=14)
 
                         # plt.grid(b=True, axis='both', which='major')
 
@@ -562,7 +577,7 @@ class FETs_calculation(object):
                               np.rint(np.ndarray.flatten(self.length_array * 10 ** 4)),
                               np.rint(np.ndarray.flatten(self.on_state_resistance[:, :, z, 0])),
                               np.rint(np.ndarray.flatten(self.off_state_resistance[:, :, z, 0])),
-                              np.rint(np.ndarray.flatten(self.on_off_ratio[:, :, z, 0])),
+                              np.ndarray.flatten(self.on_off_ratio[:, :, z, 0]),
                               np.round(np.ndarray.flatten(self.max_mobility[:, :, z]), 3)]).T)
 
             df.columns = ['Chip name', 'Measurement', 'Status', 'Bias',
