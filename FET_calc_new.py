@@ -14,11 +14,10 @@ def calculate_capacitance(thickness, epsilon):
     return (C / (8.85 * 1e-14)) ** (-1)
 
 # основной путь к папке с данными по разным чипам
-path = r'C:\Users\kpebe\OneDrive\Рабочий стол\Transistors\Measurements\Pristine series'
+path = r'C:\Users\kpebe\OneDrive\Рабочий стол\Transistors\Measurements\Andrey'
 
 chip_names = os.listdir(path)
 
-a = {'G3S1': 3, 'G3S3': 1, 'G3S4': 2, 'G3S7': 2}
 for chip in chip_names:
 
     measurements = os.listdir(path + '\\' + chip)
@@ -39,15 +38,15 @@ for chip in chip_names:
 
         if chip:
 
-            print(chip)
+            print(chip, measurement)
 
-            calc = FETs_calculation(columns=10, rows=24, filepath_kernel=path,
+            calc = FETs_calculation(columns=3, rows=50, filepath_kernel=path,
                                     chip_name=chip, measurement=measurement,
                                     measurement_type='Isd-Vg', num_sd_bias=1)
 
             calc.params_calc()
             calc.heatmaps()
-            # calc.plot_graphs()
+            calc.plot_graphs()
             # calc.mobility_calc(length_array=length_array, C=calculate_capacitance([300], [3.9]),
             #                    width= 150/1e4, plot_graphs=False, plot_heatmaps=False)
             # calc.export_data()

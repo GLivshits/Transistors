@@ -139,18 +139,21 @@ class FETs_calculation(object):
                         self.off_state_resistance[i, j, k, :] = abs(self.sd_biases[k] / self.min_currents[i, j, k, :])
 
                 except FileNotFoundError:
-
+                    print('Data for fet_{}_{} not found!'.format(i+1, j+1))
+                    self.on_off_ratio[i, j, :, :] = float('NaN')
+                    self.on_state_resistance[i, j, :, :] = float('NaN')
+                    self.off_state_resistance[i, j, :, :] = float('NaN')
                     self.status_array[i, j] = 3
-                    pass
-
-        for i in range(self.rows):
-
-            if i%2 == 1:
-
-                self.on_off_ratio[i, :, :, :] = self.on_off_ratio[i, ::-1, :, :]
-                self.on_state_resistance[i, :, :, :] = self.on_state_resistance[i, ::-1, :, :]
-                self.off_state_resistance[i, :, :, :] = self.off_state_resistance[i, ::-1, :, :]
-                self.status_array[i, :] = self.status_array[i, ::-1]
+                    continue
+        #
+        # for i in range(self.rows):
+        #
+        #     if i%2 == 1:
+        #
+        #         self.on_off_ratio[i, :, :, :] = self.on_off_ratio[i, ::-1, :, :]
+        #         self.on_state_resistance[i, :, :, :] = self.on_state_resistance[i, ::-1, :, :]
+        #         self.off_state_resistance[i, :, :, :] = self.off_state_resistance[i, ::-1, :, :]
+        #         self.status_array[i, :] = self.status_array[i, ::-1]
 
     def heatmaps(self):
 
